@@ -52,21 +52,17 @@ class Movies extends Component {
     this.setState({ selectedGenre: genre, currentPage: 1 });
   };
 
-  HandleSort = (colName) => {
-    const sortColumn = { ...this.state.sortColumn };
-    if (sortColumn.columnName === colName) {
-      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-    } else {
-      sortColumn.columnName = colName;
-      sortColumn.order = "asc";
-    }
-    this.setState({ sortColumn });
-  };
+
 
   SetTestValue = () => {
     const test = this.state.test + 1;
     this.setState({ test });
   };
+
+  HandleSort = (sortColumn) => {
+       this.setState({ sortColumn });
+  };
+  
 
   render() {
     //console.log("props", this.props);
@@ -124,6 +120,7 @@ class Movies extends Component {
 
           <MoviesTable
             moviesFilterByGenre={moviesInpageAfterFilterGenre}
+            sortColumn={ sortColumn}
             onLike={this.HandleLike}
             onDelete={this.HadleDeleteMovie}
             onSort={this.HandleSort}

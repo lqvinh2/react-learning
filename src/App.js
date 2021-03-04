@@ -22,6 +22,9 @@ class App extends Component {
     this.setState({ counters });
   };
 
+
+
+  
   //
   HadleIncrement = (counter) => {
     console.log(111);
@@ -41,6 +44,8 @@ class App extends Component {
 
     this.setState({ counters });
   };
+
+  
 
   render() {
     return (
