@@ -14,7 +14,7 @@ class Movies extends Component {
     movies: [],
     genres: [],
     selectedGenre: null,
-    count: this.props.counter.value,
+    count: 1,
     pageSize: 4,
     currentPage: 1,
     sortColumn: { columnName: "title", order: "asc" },
@@ -52,22 +52,16 @@ class Movies extends Component {
     this.setState({ selectedGenre: genre, currentPage: 1 });
   };
 
-
-
   SetTestValue = () => {
     const test = this.state.test + 1;
     this.setState({ test });
   };
 
   HandleSort = (sortColumn) => {
-       this.setState({ sortColumn });
+    this.setState({ sortColumn });
   };
-  
 
-  render() {
-    //console.log("props", this.props);
-    const { length: count } = this.state.movies;
-
+  GetPageData = () => {
     const {
       pageSize,
       currentPage,
@@ -93,6 +87,22 @@ class Movies extends Component {
       pageSize
     );
 
+    return {
+      totalCount: filterByGenre.length,
+      data: moviesInpageAfterFilterGenre,
+    };
+  };
+
+  render() {
+    const { length: count } = this.state.movies;
+
+    const { pageSize, currentPage, selectedGenre, sortColumn } = this.state;
+
+    const {
+      totalCount,
+      data: moviesInpageAfterFilterGenre,
+    } = this.GetPageData();
+
     if (count === 0) {
       return <p>There is no movie !!</p>;
     }
@@ -111,23 +121,23 @@ class Movies extends Component {
           <ListGroup
             items={this.state.genres}
             // using default prop in [ListGroup]
-            selectedGenre={this.state.selectedGenre}
+            selectedGenre={selectedGenre}
             onItemSelect={this.HandleGenreSelect}
           ></ListGroup>
         </div>
         <div className="col">
-          <p>Showing {filterByGenre.length} Movies</p>
+          <p>Showing {totalCount} Movies</p>
 
           <MoviesTable
             moviesFilterByGenre={moviesInpageAfterFilterGenre}
-            sortColumn={ sortColumn}
+            sortColumn={sortColumn}
             onLike={this.HandleLike}
             onDelete={this.HadleDeleteMovie}
             onSort={this.HandleSort}
           ></MoviesTable>
 
           <Pagination
-            itemCount={filterByGenre.length}
+            itemCount={totalCount}
             pageSize={pageSize}
             onPageChange={this.HandlePageChange}
             currentPage={currentPage}
