@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 //import logo from "./logo.svg";
-import "./App.css";
 
-import Counters from "./components/counters";
-
+//import Counters from "./components/counters";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Movies from "./components/movies";
 import NavBar from "./components/navBar";
 import Customers from "./components/customers";
 import Rentals from "./components/rentals";
 import NotFound from "./components/notFound";
+import MovieForm from "./components/movieForm";
+
+import "./App.css";
+import LoginForm from "./components/loginForm";
+import RegisterForm from "./components/registerForm";
 
 // import Home from "./componentLearnRoute/home";
 // import Products from "./componentLearnRoute/products";
@@ -18,6 +21,8 @@ import NotFound from "./components/notFound";
 // import ProductDetails from "./componentLearnRoute/productDetails";
 // import NotFound from "./componentLearnRoute/notFound";
 // import Customers from "./components/customers";
+
+
 
 class App extends Component {
   state = {
@@ -61,6 +66,10 @@ class App extends Component {
 
         <main className="container">
           <Switch>
+            {/* <Route path="/movies/:id" render={(props) => <MovieForm {...props}></MovieForm>}></Route> */}
+            <Route path="/login" component={LoginForm}></Route>
+            <Route path="/register" component={RegisterForm}></Route>
+            <Route path="/movies/:id" component={MovieForm}></Route>
             <Route path="/movies" component={Movies}></Route>
             <Route path="/customers" component={Customers}></Route>
             <Route path="/rentals" component={Rentals}></Route>
@@ -80,5 +89,7 @@ class App extends Component {
     );
   }
 }
+
+
 
 export default App;

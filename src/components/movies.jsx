@@ -7,6 +7,7 @@ import { paginate } from "../Util/pagination";
 import ListGroup from "./listGroup";
 import MoviesTable from "./moviesTable";
 import _ from "lodash";
+import { Link } from "react-router-dom";
 
 class Movies extends Component {
   state = {
@@ -126,7 +127,11 @@ class Movies extends Component {
           ></ListGroup>
         </div>
         <div className="col">
+
+          <Link to="/movies/new" className="btn btn-primary">NEW MOVIE</Link>
           <p>Showing {totalCount} Movies</p>
+
+
 
           <MoviesTable
             moviesFilterByGenre={moviesInpageAfterFilterGenre}

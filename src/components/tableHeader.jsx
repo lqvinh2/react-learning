@@ -15,7 +15,7 @@ class TableHeader extends Component {
   RenderSortICon = (column) => {
     const { sortColumn } = this.props;
 
-    if (column.columnName != sortColumn.columnName) {
+    if (column.columnName !== sortColumn.columnName) {
       return null;
     }
 

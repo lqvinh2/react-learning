@@ -81,7 +81,18 @@ class NavBar extends Component {
                   Rentals
                 </NavLink>
               </li>
-              <li className="nav-item"></li>
+
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/login">
+                  LOGIN
+                </NavLink>
+              </li>
+
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/register">
+                  REGISTER
+                </NavLink>
+              </li>
             </ul>
           </div>
         </div>
