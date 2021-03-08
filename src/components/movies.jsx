@@ -8,6 +8,7 @@ import ListGroup from "./listGroup";
 import MoviesTable from "./moviesTable";
 import _ from "lodash";
 import { Link } from "react-router-dom";
+import SearchBox from "./searchBox";
 
 class Movies extends Component {
   state = {
@@ -18,6 +19,7 @@ class Movies extends Component {
     count: 1,
     pageSize: 4,
     currentPage: 1,
+    searchQuery: "",
     sortColumn: { columnName: "title", order: "asc" },
   };
 
@@ -62,6 +64,10 @@ class Movies extends Component {
     this.setState({ sortColumn });
   };
 
+  handleSearch = (query) => {
+    this.setState({ searchQuery: query, selectedGenre: null, currentPage: 1 });
+  };
+
   GetPageData = () => {
     const {
       pageSize,
@@ -69,12 +75,21 @@ class Movies extends Component {
       movies: Allmovies,
       selectedGenre,
       sortColumn,
+      searchQuery,
     } = this.state;
 
-    const filterByGenre =
-      selectedGenre && selectedGenre._id
-        ? Allmovies.filter((m) => m.genre._id === selectedGenre._id)
-        : Allmovies;
+    let filterByGenre = Allmovies;
+
+    if (searchQuery)
+      filterByGenre = Allmovies.filter((m) =>
+        m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+      );
+    else if (selectedGenre && selectedGenre._id) {
+      filterByGenre =
+        selectedGenre && selectedGenre._id
+          ? Allmovies.filter((m) => m.genre._id === selectedGenre._id)
+          : Allmovies;
+    }
 
     const sorted = _.orderBy(
       filterByGenre,
@@ -97,7 +112,13 @@ class Movies extends Component {
   render() {
     const { length: count } = this.state.movies;
 
-    const { pageSize, currentPage, selectedGenre, sortColumn } = this.state;
+    const {
+      pageSize,
+      currentPage,
+      selectedGenre,
+      sortColumn,
+      searchQuery,
+    } = this.state;
 
     const {
       totalCount,
@@ -110,13 +131,13 @@ class Movies extends Component {
 
     return (
       <div className="row">
-        <button
+        {/* <button
           type="button"
           className={
             this.props.id % 2 === 1 ? "btn btn-primary" : "btn btn-danger"
           }
           onClick={this.SetTestValue}
-        ></button>
+        ></button> */}
 
         <div className="col-3">
           <ListGroup
@@ -127,11 +148,17 @@ class Movies extends Component {
           ></ListGroup>
         </div>
         <div className="col">
+          <Link
+            to="/movies/new"
+            className="btn btn-primary"
+            style={{ marginBottom: 20 }}
+          >
+            NEW MOVIE
+          </Link>
 
-          <Link to="/movies/new" className="btn btn-primary">NEW MOVIE</Link>
+          <SearchBox value={searchQuery} onChange={this.handleSearch} />
+
           <p>Showing {totalCount} Movies</p>
-
-
 
           <MoviesTable
             moviesFilterByGenre={moviesInpageAfterFilterGenre}

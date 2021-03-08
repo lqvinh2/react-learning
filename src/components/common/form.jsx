@@ -1,6 +1,7 @@
 import { Component } from "react";
 import Joi from "joi";
 import Input from "./input";
+import Select from "./select";
 
 class Form extends Component {
   USERNAME = "username";
@@ -134,6 +135,21 @@ class Form extends Component {
       ></Input>
     );
   };
+
+  RenderSelect(name, label, options) {
+    const { data, errors } = this.state;
+
+    return (
+      <Select
+        name={name}
+        value={data[name]}
+        label={label}
+        options={options}
+        onChange={this.HandleChange}
+        error={errors[name]}
+      />
+    );
+  }
 
   //   render() {
   //     return <h1>11</h1>;

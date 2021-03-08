@@ -22,7 +22,7 @@ const Pagination = (props) => {
           >
             <a
               className="page-link"
-              href="http://"
+              href="#"
               onClick={() => onPageChange(page)}
             >
               {page}
