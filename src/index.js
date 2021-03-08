@@ -8,11 +8,12 @@ import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
 
 import { BrowserRouter } from "react-router-dom";
+import App2 from "./app2_learn_CallingBackendServices";
 
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
-      <App></App>
+      <App2></App2>
     </React.StrictMode>
   </BrowserRouter>,
   document.getElementById("root")
